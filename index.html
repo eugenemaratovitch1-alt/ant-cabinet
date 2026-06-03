@@ -43,7 +43,7 @@
     const supabaseClient = window.supabase.createClient(SB_URL, SB_KEY);
 
     supabaseClient
-        .from('clients2')
+        .from('clients')
         .select('id, name, phone, addr, stage, sum')
         .eq('id', clientId)
         .maybeSingle()
