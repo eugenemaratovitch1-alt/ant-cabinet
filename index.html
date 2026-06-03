@@ -7,61 +7,40 @@
 </head>
 <body>
 <div id="app">Загрузка...</div>
-
 <script>
 (function() {
-    const SUPABASE_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
-    const SUPABASE_ANON_KEY = 'ТВОЙ_ANON_KEY';
-
-    const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const urlParams = new URLSearchParams(window.location.search);
-    const clientId = urlParams.get('id');
+    const SB_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
+    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
+    const _supabase = window.supabase.createClient(SB_URL, SB_KEY);
+    const id = new URLSearchParams(location.search).get('id');
     const app = document.getElementById('app');
 
-    if (!clientId) {
-        app.textContent = 'Нет ID клиента';
+    if (!id) {
+        app.innerHTML = '❌ Не указан ID клиента';
         return;
     }
 
-    _supabase
-        .from('clients2')
-        .select('*')
-        .eq('id', clientId)
-        .maybeSingle()
+    _supabase.from('clients2').select('*').eq('id', id).maybeSingle()
         .then(res => {
             if (res.error) throw res.error;
-
             if (!res.data) {
-                app.textContent = 'Клиент не найден';
+                app.innerHTML = '❌ Клиент не найден';
                 return;
             }
-
             const c = res.data;
-
             app.innerHTML = `
-                <h2>${escapeHtml(c.name) || 'Без имени'}</h2>
-                <p>📞 ${escapeHtml(c.phone) || '—'}</p>
-                <p>📍 ${escapeHtml(c.addr) || '—'}</p>
-                <p>📋 ${escapeHtml(c.stage) || '—'}</p>
-                <p>💰 ${escapeHtml(c.sum || 0)} ₽</p>
+                <h2>${c.name || 'Без имени'}</h2>
+                <p>📞 ${c.phone || '—'}</p>
+                <p>📍 ${c.addr || '—'}</p>
+                <p>📋 ${c.stage || '—'}</p>
+                <p>💰 ${c.sum || 0} ₽</p>
+                <hr>
+                <small>ID: ${c.id}</small>
             `;
         })
         .catch(err => {
-            app.textContent = 'Ошибка: ' + (err.message || 'Неизвестная ошибка');
+            app.innerHTML = 'Ошибка: ' + err.message;
         });
-
-    function escapeHtml(value) {
-        if (value === null || value === undefined || value === '') return '';
-
-        return String(value).replace(/[&<>"']/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            if (m === '"') return '&quot;';
-            if (m === "'") return '&#039;';
-            return m;
-        });
-    }
 })();
 </script>
 </body>
