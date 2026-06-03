@@ -11,7 +11,8 @@
 <script>
 (function() {
     const SB_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
-    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
+
+    const SB_KEY_RAW = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
 
     const app = document.getElementById('app');
 
@@ -24,7 +25,12 @@
         return;
     }
 
-    const supabaseClient = window.supabase.createClient(SB_URL, SB_KEY);
+    const SB_KEY = cleanHeaderValue(SB_KEY_RAW);
+
+    if (!isHeaderSafe(SB_KEY)) {
+        app.textContent = '❌ Ошибка: Supabase ключ содержит недопустимые символы. Скопируй anon public key заново из Supabase без русских букв, пробелов и кавычек.';
+        return;
+    }
 
     const params = new URLSearchParams(window.location.search);
     const clientId = params.get('id');
@@ -33,6 +39,8 @@
         app.textContent = '❌ Не указан ID клиента';
         return;
     }
+
+    const supabaseClient = window.supabase.createClient(SB_URL, SB_KEY);
 
     supabaseClient
         .from('clients2')
@@ -52,7 +60,7 @@
             renderClient(res.data);
         })
         .catch(function(err) {
-            app.textContent = '❌ Ошибка: ' + getSafeValue(err.message, 'Неизвестная ошибка');
+            app.textContent = '❌ Ошибка: ' + getSafeValue(err && err.message, 'Неизвестная ошибка');
         });
 
     function renderClient(client) {
@@ -100,6 +108,22 @@
         }
 
         return String(value) + ' ₽';
+    }
+
+    function cleanHeaderValue(value) {
+        return String(value || '')
+            .trim()
+            .replace(/\s+/g, '');
+    }
+
+    function isHeaderSafe(value) {
+        for (let i = 0; i < value.length; i++) {
+            if (value.charCodeAt(i) > 255) {
+                return false;
+            }
+        }
+
+        return true;
     }
 })();
 </script>
