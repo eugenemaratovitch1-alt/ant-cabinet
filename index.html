@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Кабинет заказчика</title>
@@ -7,40 +7,102 @@
 </head>
 <body>
 <div id="app">Загрузка...</div>
+
 <script>
 (function() {
     const SB_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
     const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
-    const _supabase = window.supabase.createClient(SB_URL, SB_KEY);
-    const id = new URLSearchParams(location.search).get('id');
+
     const app = document.getElementById('app');
 
-    if (!id) {
-        app.innerHTML = '❌ Не указан ID клиента';
+    if (!window.supabase) {
+        app.textContent = '❌ Ошибка загрузки Supabase';
         return;
     }
 
-    _supabase.from('clients2').select('*').eq('id', id).maybeSingle()
-        .then(res => {
-            if (res.error) throw res.error;
+    const supabaseClient = window.supabase.createClient(SB_URL, SB_KEY);
+    const id = new URLSearchParams(window.location.search).get('id');
+
+    if (!id) {
+        app.textContent = '❌ Не указан ID клиента';
+        return;
+    }
+
+    supabaseClient
+        .from('clients2')
+        .select('id, name, phone, addr, stage, sum')
+        .eq('id', id)
+        .maybeSingle()
+        .then(function(res) {
+            if (res.error) {
+                throw res.error;
+            }
+
             if (!res.data) {
-                app.innerHTML = '❌ Клиент не найден';
+                app.textContent = '❌ Клиент не найден';
                 return;
             }
-            const c = res.data;
-            app.innerHTML = `
-                <h2>${c.name || 'Без имени'}</h2>
-                <p>📞 ${c.phone || '—'}</p>
-                <p>📍 ${c.addr || '—'}</p>
-                <p>📋 ${c.stage || '—'}</p>
-                <p>💰 ${c.sum || 0} ₽</p>
-                <hr>
-                <small>ID: ${c.id}</small>
-            `;
+
+            renderClient(res.data);
         })
-        .catch(err => {
-            app.innerHTML = 'Ошибка: ' + err.message;
+        .catch(function(err) {
+            app.textContent = '❌ Ошибка: ' + safeText(err.message || 'Неизвестная ошибка');
         });
+
+    function renderClient(c) {
+        app.innerHTML = '';
+
+        const title = document.createElement('h2');
+        title.textContent = valueOrDefault(c.name, 'Без имени');
+        app.appendChild(title);
+
+        app.appendChild(createParagraph('📞 ', c.phone, '—'));
+        app.appendChild(createParagraph('📍 ', c.addr, '—'));
+        app.appendChild(createParagraph('📋 ', c.stage, '—'));
+        app.appendChild(createParagraph('💰 ', formatMoney(c.sum), '0 ₽'));
+
+        app.appendChild(document.createElement('hr'));
+
+        const small = document.createElement('small');
+        small.textContent = 'ID: ' + valueOrDefault(c.id, '—');
+        app.appendChild(small);
+    }
+
+    function createParagraph(prefix, value, fallback) {
+        const p = document.createElement('p');
+        p.textContent = prefix + valueOrDefault(value, fallback);
+        return p;
+    }
+
+    function valueOrDefault(value, fallback) {
+        if (value === null || value === undefined || value === '') {
+            return fallback;
+        }
+
+        return String(value);
+    }
+
+    function safeText(value) {
+        if (value === null || value === undefined) {
+            return '';
+        }
+
+        return String(value);
+    }
+
+    function formatMoney(value) {
+        if (value === null || value === undefined || value === '') {
+            return '0 ₽';
+        }
+
+        const number = Number(value);
+
+        if (Number.isFinite(number)) {
+            return number.toLocaleString('ru-RU') + ' ₽';
+        }
+
+        return String(value) + ' ₽';
+    }
 })();
 </script>
 </body>
