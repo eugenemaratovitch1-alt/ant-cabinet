@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Тест кабинета</h1>
+<p>Если вы видите этот текст, значит файл client.html успешно создан и открыт.</p>
+<p>ID из URL: <span id="id"></span></p>
+<script>
+    const id = new URLSearchParams(location.search).get('id');
+    document.getElementById('id').innerText = id || 'не указан';
+</script>
+</body>
+</html>
