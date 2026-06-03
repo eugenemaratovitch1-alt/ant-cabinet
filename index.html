@@ -15,15 +15,21 @@
 
     const app = document.getElementById('app');
 
+    if (!app) {
+        return;
+    }
+
     if (!window.supabase) {
         app.textContent = '❌ Ошибка загрузки Supabase';
         return;
     }
 
     const supabaseClient = window.supabase.createClient(SB_URL, SB_KEY);
-    const id = new URLSearchParams(window.location.search).get('id');
 
-    if (!id) {
+    const params = new URLSearchParams(window.location.search);
+    const clientId = params.get('id');
+
+    if (!clientId) {
         app.textContent = '❌ Не указан ID клиента';
         return;
     }
@@ -31,7 +37,7 @@
     supabaseClient
         .from('clients2')
         .select('id, name, phone, addr, stage, sum')
-        .eq('id', id)
+        .eq('id', clientId)
         .maybeSingle()
         .then(function(res) {
             if (res.error) {
@@ -46,45 +52,37 @@
             renderClient(res.data);
         })
         .catch(function(err) {
-            app.textContent = '❌ Ошибка: ' + safeText(err.message || 'Неизвестная ошибка');
+            app.textContent = '❌ Ошибка: ' + getSafeValue(err.message, 'Неизвестная ошибка');
         });
 
-    function renderClient(c) {
+    function renderClient(client) {
         app.innerHTML = '';
 
         const title = document.createElement('h2');
-        title.textContent = valueOrDefault(c.name, 'Без имени');
+        title.textContent = getSafeValue(client.name, 'Без имени');
         app.appendChild(title);
 
-        app.appendChild(createParagraph('📞 ', c.phone, '—'));
-        app.appendChild(createParagraph('📍 ', c.addr, '—'));
-        app.appendChild(createParagraph('📋 ', c.stage, '—'));
-        app.appendChild(createParagraph('💰 ', formatMoney(c.sum), '0 ₽'));
+        app.appendChild(createRow('📞 ', client.phone, '—'));
+        app.appendChild(createRow('📍 ', client.addr, '—'));
+        app.appendChild(createRow('📋 ', client.stage, '—'));
+        app.appendChild(createRow('💰 ', formatMoney(client.sum), '0 ₽'));
 
         app.appendChild(document.createElement('hr'));
 
-        const small = document.createElement('small');
-        small.textContent = 'ID: ' + valueOrDefault(c.id, '—');
-        app.appendChild(small);
+        const idText = document.createElement('small');
+        idText.textContent = 'ID: ' + getSafeValue(client.id, '—');
+        app.appendChild(idText);
     }
 
-    function createParagraph(prefix, value, fallback) {
+    function createRow(label, value, fallback) {
         const p = document.createElement('p');
-        p.textContent = prefix + valueOrDefault(value, fallback);
+        p.textContent = label + getSafeValue(value, fallback);
         return p;
     }
 
-    function valueOrDefault(value, fallback) {
+    function getSafeValue(value, fallback) {
         if (value === null || value === undefined || value === '') {
             return fallback;
-        }
-
-        return String(value);
-    }
-
-    function safeText(value) {
-        if (value === null || value === undefined) {
-            return '';
         }
 
         return String(value);
