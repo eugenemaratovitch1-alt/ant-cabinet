@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Кабинет заказчика</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div id="app">Загрузка...</div>
+<script>
+(function() {
+    const SB_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
+    const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
+    const _supabase = window.supabase.createClient(SB_URL, SB_KEY);
+    const id = new URLSearchParams(location.search).get('id');
+    const app = document.getElementById('app');
+
+    if (!id) {
+        app.innerHTML = '❌ Не указан ID клиента';
+        return;
+    }
+
+    _supabase.from('clients').select('*').eq('id', id).maybeSingle()
+        .then(res => {
+            if (res.error) throw res.error;
+            if (!res.data) {
+                app.innerHTML = '❌ Клиент не найден';
+                return;
+            }
+            const c = res.data;
+            app.innerHTML = `
+                <h2>${c.name || 'Без имени'}</h2>
+                <p>📞 ${c.phone || '—'}</p>
+                <p>📍 ${c.addr || '—'}</p>
+                <p>📋 ${c.stage || '—'}</p>
+                <p>💰 ${c.sum || 0} ₽</p>
+                <hr>
+                <small>ID: ${c.id}</small>
+            `;
+        })
+        .catch(err => {
+            app.innerHTML = 'Ошибка: ' + err.message;
+        });
+})();
+</script>
+</body>
+</html>
