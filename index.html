@@ -5,104 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Кабинет заказчика | ANT</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
-        body {
-            background: #f0f2f5;
-            padding: 20px;
-            color: #1e293b;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .card {
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .card-header {
-            background: #1e3a5f;
-            color: white;
-            padding: 20px 24px;
-        }
-        .card-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .card-header p {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-        .card-body {
-            padding: 24px;
-        }
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e9eef3;
-        }
-        .info-label {
-            font-weight: 500;
-            color: #5b6e8c;
-        }
-        .info-value {
-            font-weight: 500;
-            color: #0f172a;
-            text-align: right;
-            word-break: break-word;
-            max-width: 60%;
-        }
-        .stage-badge {
-            display: inline-block;
-            background: #eef2ff;
-            color: #1e3a5f;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #5b6e8c;
-        }
-        .footer {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #8ba0bc;
-            margin-top: 20px;
-        }
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #1e3a5f;
-        }
-        .error {
-            background: #fee2e2;
-            color: #b91c1c;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-        }
-        button {
-            background: #1e3a5f;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 500;
-            margin-top: 16px;
-            cursor: pointer;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; }
+        body { background: #f0f2f5; padding: 20px; color: #1e293b; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .card { background: white; border-radius: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); overflow: hidden; margin-bottom: 20px; }
+        .card-header { background: #1e3a5f; color: white; padding: 20px 24px; }
+        .card-header h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 4px; }
+        .card-header p { opacity: 0.8; font-size: 0.9rem; }
+        .card-body { padding: 24px; }
+        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e9eef3; }
+        .info-label { font-weight: 500; color: #5b6e8c; }
+        .info-value { font-weight: 500; color: #0f172a; text-align: right; word-break: break-word; max-width: 60%; }
+        .stage-badge { display: inline-block; background: #eef2ff; color: #1e3a5f; padding: 4px 12px; border-radius: 30px; font-size: 0.8rem; font-weight: 500; }
+        .empty-state { text-align: center; padding: 40px 20px; color: #5b6e8c; }
+        .footer { text-align: center; font-size: 0.75rem; color: #8ba0bc; margin-top: 20px; }
+        .loading { text-align: center; padding: 40px; color: #1e3a5f; }
+        .error { background: #fee2e2; color: #b91c1c; border-radius: 20px; padding: 20px; text-align: center; }
     </style>
 </head>
 <body>
@@ -112,14 +30,13 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // Конфигурация Supabase (из ТЗ)
+    // Конфигурация Supabase
     const SUPABASE_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
 
-    // Используем другое имя, чтобы не конфликтовать с возможной глобальной переменной
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Создаём клиент Supabase
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Получаем id из URL
     const urlParams = new URLSearchParams(window.location.search);
     const clientId = urlParams.get('id');
 
@@ -129,23 +46,14 @@
         if (!clientId) {
             appDiv.innerHTML = `
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Кабинет заказчика</h2>
-                        <p>Добро пожаловать</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="empty-state">
-                            ❓ Не указан ID клиента.<br>
-                            Пожалуйста, перейдите по ссылке из уведомления.
-                        </div>
-                    </div>
-                </div>
-            `;
+                    <div class="card-header"><h2>Кабинет заказчика</h2><p>Добро пожаловать</p></div>
+                    <div class="card-body"><div class="empty-state">❓ Не указан ID клиента.<br>Пожалуйста, перейдите по ссылке из уведомления.</div></div>
+                </div>`;
             return;
         }
 
         try {
-            const { data, error } = await supabaseClient
+            const { data, error } = await supabase
                 .from('clients2')
                 .select('*')
                 .eq('id', clientId)
@@ -156,57 +64,32 @@
             if (!data) {
                 appDiv.innerHTML = `
                     <div class="card">
-                        <div class="card-header">
-                            <h2>Кабинет заказчика</h2>
-                            <p>Информация о заказе</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="empty-state">
-                                🔍 Клиент с ID "${clientId}" не найден.<br>
-                                Возможно, данные ещё загружаются. Попробуйте позже.
-                            </div>
-                        </div>
-                    </div>
-                `;
+                        <div class="card-header"><h2>Кабинет заказчика</h2><p>Информация о заказе</p></div>
+                        <div class="card-body"><div class="empty-state">🔍 Клиент с ID "${clientId}" не найден.<br>Возможно, данные ещё загружаются. Попробуйте позже.</div></div>
+                    </div>`;
                 return;
             }
 
-            // Отображаем данные клиента
             renderClientData(data);
         } catch (err) {
             console.error(err);
             appDiv.innerHTML = `
                 <div class="card">
-                    <div class="card-header">
-                        <h2>Кабинет заказчика</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="error">
-                            ⚠️ Ошибка загрузки данных. Пожалуйста, попробуйте позже.<br>
-                            <small>${err.message || 'Неизвестная ошибка'}</small>
-                        </div>
-                    </div>
-                </div>
-            `;
+                    <div class="card-header"><h2>Кабинет заказчика</h2></div>
+                    <div class="card-body"><div class="error">⚠️ Ошибка загрузки данных.<br><small>${err.message || 'Неизвестная ошибка'}</small></div></div>
+                </div>`;
         }
     }
 
     function renderClientData(client) {
         const stageMap = {
-            'new': 'Новый',
-            'contact': 'На связи',
-            'offer': 'Предложение',
-            'contract': 'Договор',
-            'work': 'Работы',
-            'done': 'Завершён',
-            'lost': 'Потерян'
+            'new': 'Новый', 'contact': 'На связи', 'offer': 'Предложение',
+            'contract': 'Договор', 'work': 'Работы', 'done': 'Завершён', 'lost': 'Потерян'
         };
         const stageText = stageMap[client.stage] || client.stage || '—';
-
         const sumFormatted = client.sum ? new Intl.NumberFormat('ru-RU').format(client.sum) + ' ₽' : '—';
-
-        const date = client.planned_date ? client.planned_date : '—';
-        const time = client.planned_time ? client.planned_time : '—';
+        const date = client.planned_date || '—';
+        const time = client.planned_time || '—';
 
         appDiv.innerHTML = `
             <div class="card">
@@ -215,41 +98,16 @@
                     <p>${escapeHtml(client.addr || 'Адрес не указан')}</p>
                 </div>
                 <div class="card-body">
-                    <div class="info-row">
-                        <span class="info-label">📞 Телефон</span>
-                        <span class="info-value">${escapeHtml(client.phone || '—')}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">📧 Email</span>
-                        <span class="info-value">${escapeHtml(client.email || '—')}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">📋 Этап</span>
-                        <span class="info-value"><span class="stage-badge">${stageText}</span></span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">💰 Стоимость</span>
-                        <span class="info-value">${sumFormatted}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">🛠 Услуга</span>
-                        <span class="info-value">${escapeHtml(client.service_name || '—')}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">📅 Плановая дата</span>
-                        <span class="info-value">${date} ${time !== '—' ? 'в ' + time : ''}</span>
-                    </div>
-                    ${client.negotiations ? `
-                    <div class="info-row">
-                        <span class="info-label">💬 Комментарий</span>
-                        <span class="info-value">${escapeHtml(client.negotiations)}</span>
-                    </div>
-                    ` : ''}
+                    <div class="info-row"><span class="info-label">📞 Телефон</span><span class="info-value">${escapeHtml(client.phone || '—')}</span></div>
+                    <div class="info-row"><span class="info-label">📧 Email</span><span class="info-value">${escapeHtml(client.email || '—')}</span></div>
+                    <div class="info-row"><span class="info-label">📋 Этап</span><span class="info-value"><span class="stage-badge">${stageText}</span></span></div>
+                    <div class="info-row"><span class="info-label">💰 Стоимость</span><span class="info-value">${sumFormatted}</span></div>
+                    <div class="info-row"><span class="info-label">🛠 Услуга</span><span class="info-value">${escapeHtml(client.service_name || '—')}</span></div>
+                    <div class="info-row"><span class="info-label">📅 Плановая дата</span><span class="info-value">${date} ${time !== '—' ? 'в ' + time : ''}</span></div>
+                    ${client.negotiations ? `<div class="info-row"><span class="info-label">💬 Комментарий</span><span class="info-value">${escapeHtml(client.negotiations)}</span></div>` : ''}
                 </div>
             </div>
-            <div class="footer">
-                ANT CRM — актуальные данные по заказу
-            </div>
+            <div class="footer">ANT CRM — актуальные данные по заказу</div>
         `;
     }
 
@@ -260,8 +118,6 @@
             if (m === '<') return '&lt;';
             if (m === '>') return '&gt;';
             return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
         });
     }
 
