@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>DOC — Личный кабинет</title>
+
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-width:480px;margin:0 auto}
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
 /* Шапка */
 .hero{background:linear-gradient(135deg,#0f2744 0%,#1e3a5f 60%,#1a4a7a 100%);padding:20px 16px 24px;position:relative;overflow:hidden}
@@ -25,6 +27,7 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
 
 /* Карточки */
 .section{padding:0 12px;margin-bottom:10px}
+.section:first-child{padding-top:12px}
 .card{background:#fff;border-radius:14px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .card+.card{margin-top:8px}
 .card-title{font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;margin-bottom:11px}
@@ -41,9 +44,9 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
 .sys-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f1f5f9}
 .sys-item:last-child{border-bottom:none}
 .sys-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.sys-name{flex:1;font-size:13px;font-weight:700;color:#1e293b}
+.sys-name{font-size:13px;font-weight:700;color:#1e293b}
 .sys-sub{font-size:10px;color:#94a3b8;margin-top:1px}
-.badge{border-radius:20px;padding:3px 10px;font-size:10px;font-weight:800}
+.badge{border-radius:20px;padding:3px 10px;font-size:10px;font-weight:800;white-space:nowrap}
 .badge-new{background:#f0fdf4;color:#16a34a}
 .badge-ok{background:#eff6ff;color:#2563eb}
 .badge-warn{background:#fffbeb;color:#d97706}
@@ -59,15 +62,15 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
 .hist-sum{font-size:13px;font-weight:800;color:#16a34a;text-align:right;flex-shrink:0}
 
 /* Финансы */
-.finance-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
+.finance-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f1f5f9;font-size:13px;gap:10px}
 .finance-row:last-child{border-bottom:none}
 .finance-label{color:#64748b}
-.finance-val{font-weight:800}
+.finance-val{font-weight:800;text-align:right}
 
 /* Фото */
 .photos{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
 .photo{aspect-ratio:1;border-radius:9px;overflow:hidden;background:#f1f5f9;cursor:pointer}
-.photo img{width:100%;height:100%;object-fit:cover}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-label{font-size:8px;font-weight:800;text-align:center;padding:3px;background:rgba(0,0,0,.4);color:#fff;position:absolute;bottom:0;left:0;right:0}
 .photo-wrap{position:relative}
 
@@ -108,9 +111,9 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
 
 /* Скрытые секции */
 #appScreen{display:none}
-.section:first-child{padding-top:12px}
 </style>
 </head>
+
 <body>
 
 <!-- ЗАГРУЗКА -->
@@ -126,7 +129,7 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
   <div class="link-title">Привяжите аккаунт</div>
   <div class="link-text">Для доступа к кабинету напишите нам в Telegram — мы привяжем ваш номер к системе.</div>
   <a href="https://t.me/KysokAiBot" style="text-decoration:none;width:100%">
-    <button class="link-btn">💬 Написать в Telegram</button>
+    <button class="link-btn" type="button">💬 Написать в Telegram</button>
   </a>
   <div style="margin-top:12px;font-size:12px;color:#94a3b8">или позвоните: +7 920 010-03-21</div>
 </div>
@@ -139,8 +142,8 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
     <div class="hero-top">
       <div class="hero-logo">DOC</div>
       <div class="hero-btns">
-        <a href="tel:+79200100321" class="hero-btn">📞</a>
-        <a id="tgLink" href="https://t.me/KysokAiBot" class="hero-btn">💬</a>
+        <a href="tel:+79200100321" class="hero-btn" aria-label="Позвонить">📞</a>
+        <a id="tgLink" href="https://t.me/KysokAiBot" class="hero-btn" aria-label="Telegram">💬</a>
       </div>
     </div>
     <div class="hero-greeting">Добрый день,</div>
@@ -193,10 +196,10 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
       <div class="card-title">Связаться с нами</div>
       <div style="font-size:12px;color:#64748b;margin-bottom:10px;line-height:1.6">Вопросы по заказу, новая заявка или консультация — мы всегда на связи.</div>
       <a href="tel:+79200100321" style="text-decoration:none">
-        <button class="btn-call">📞 Позвонить +7 920 010-03-21</button>
+        <button class="btn-call" type="button">📞 Позвонить +7 920 010-03-21</button>
       </a>
       <a id="tgLinkBottom" href="https://t.me/KysokAiBot" style="text-decoration:none">
-        <button class="btn-chat">💬 Написать в Telegram</button>
+        <button class="btn-chat" type="button">💬 Написать в Telegram</button>
       </a>
     </div>
   </div>
@@ -204,223 +207,516 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-const SUPABASE_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+(function() {
+  const SUPABASE_URL = 'https://xlrsfuhjwdcfxshaofrv.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscnNmdWhqd2RjZnhzaGFvZnJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDg3MjcsImV4cCI6MjA5NTUyNDcyN30.xmnVlOEogkDZNwJmG61OW-6daiuCUihMPeJ0es7Du9s';
 
-// Получаем id из URL
-const urlParams = new URLSearchParams(window.location.search);
-const clientId = urlParams.get('id');
+  const STAGES = {
+    new: '📋 Заявка принята',
+    measure: '📐 Замер назначен',
+    estimate: '💰 Смета готовится',
+    planned: '📅 Монтаж запланирован',
+    montage: '🔨 Работы идут',
+    done: '✅ Работы завершены',
+    refused: 'Заявка закрыта'
+  };
 
-const STAGES = {
-  new:'📋 Заявка принята',
-  measure:'📐 Замер назначен',
-  estimate:'💰 Смета готовится',
-  planned:'📅 Монтаж запланирован',
-  montage:'🔨 Работы идут',
-  done:'✅ Работы завершены',
-  refused:'Заявка закрыта'
-};
+  const STEPS_MAP = {
+    arrived: '📍 Прибыли',
+    photo_before: '📷 Фото ДО',
+    montage: '🔧 Работы',
+    photo_after: '📷 Фото ПОСЛЕ',
+    closed: '✅ Сдано'
+  };
 
-const STEPS_MAP = {
-  arrived:'📍 Прибыли',
-  photo_before:'📷 Фото ДО',
-  montage:'🔧 Работы',
-  photo_after:'📷 Фото ПОСЛЕ',
-  closed:'✅ Сдано'
-};
-const STEPS_ORDER = ['arrived','photo_before','montage','photo_after','closed'];
+  const STEPS_ORDER = ['arrived', 'photo_before', 'montage', 'photo_after', 'closed'];
 
-const PASSPORT_SYSTEMS = [
-  {id:'drain',icon:'🌧',name:'Водостоки'},
-  {id:'roof',icon:'🏠',name:'Кровля'},
-  {id:'snow',icon:'❄️',name:'Снегозадержатели'},
-  {id:'facade',icon:'🪟',name:'Фасад'},
-  {id:'insul',icon:'🧱',name:'Утепление'},
-  {id:'landscape',icon:'🌿',name:'Благоустройство'},
-  {id:'drainage',icon:'💧',name:'Дренаж'},
-  {id:'electric',icon:'⚡',name:'Электрика'},
-  {id:'plumbing',icon:'🔧',name:'Сантехника'},
-  {id:'fence',icon:'🏗',name:'Забор'},
-  {id:'windows',icon:'🪟',name:'Окна'},
-];
+  const PASSPORT_SYSTEMS = [
+    {id: 'drain', icon: '🌧', name: 'Водостоки'},
+    {id: 'roof', icon: '🏠', name: 'Кровля'},
+    {id: 'snow', icon: '❄️', name: 'Снегозадержатели'},
+    {id: 'facade', icon: '🪟', name: 'Фасад'},
+    {id: 'insul', icon: '🧱', name: 'Утепление'},
+    {id: 'landscape', icon: '🌿', name: 'Благоустройство'},
+    {id: 'drainage', icon: '💧', name: 'Дренаж'},
+    {id: 'electric', icon: '⚡', name: 'Электрика'},
+    {id: 'plumbing', icon: '🔧', name: 'Сантехника'},
+    {id: 'fence', icon: '🏗', name: 'Забор'},
+    {id: 'windows', icon: '🪟', name: 'Окна'}
+  ];
 
-const STATUS_BADGE = {
-  new:{cls:'badge-new',label:'Новое'},
-  ok:{cls:'badge-ok',label:'Норма'},
-  check:{cls:'badge-warn',label:'Проверить'},
-  bad:{cls:'badge-bad',label:'Плохое'},
-  none:{cls:'badge-none',label:'Нет данных'},
-};
+  const STATUS_BADGE = {
+    new: {cls: 'badge-new', label: 'Новое'},
+    ok: {cls: 'badge-ok', label: 'Норма'},
+    check: {cls: 'badge-warn', label: 'Проверить'},
+    bad: {cls: 'badge-bad', label: 'Плохое'},
+    none: {cls: 'badge-none', label: 'Нет данных'}
+  };
 
-function fmt(n) { return Number(n).toLocaleString('ru'); }
+  const loadScreen = document.getElementById('loadScreen');
+  const linkScreen = document.getElementById('linkScreen');
+  const appScreen = document.getElementById('appScreen');
 
-async function loadClient() {
-  if (!clientId) {
-    document.getElementById('loadScreen').style.display = 'none';
-    document.getElementById('linkScreen').style.display = 'flex';
+  const urlParams = new URLSearchParams(window.location.search);
+  const clientId = urlParams.get('id');
+
+  if (!window.supabase) {
+    showLinkScreen('Ошибка загрузки Supabase. Обновите страницу или попробуйте позже.');
     return;
   }
-  try {
-    const { data, error } = await supabase
-      .from('clients2')
-      .select('*')
-      .eq('id', clientId)
-      .maybeSingle();
-    if (error) throw error;
-    if (!data) {
-      document.getElementById('loadScreen').style.display = 'none';
-      document.getElementById('linkScreen').style.display = 'flex';
+
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  loadClient();
+
+  async function loadClient() {
+    if (!clientId) {
+      showLinkScreen();
       return;
     }
-    document.getElementById('loadScreen').style.display = 'none';
-    document.getElementById('appScreen').style.display = 'block';
-    renderApp(data);
-  } catch (err) {
-    console.error(err);
-    document.getElementById('loadScreen').style.display = 'none';
-    document.getElementById('linkScreen').style.display = 'flex';
-  }
-}
 
-function renderApp(c) {
-  document.getElementById('heroName').textContent = c.name || 'Клиент';
-  const addrEl = document.getElementById('heroAddr');
-  addrEl.innerHTML = '<span>📍</span><span>' + (c.addr || 'Адрес не указан') + '</span>';
-  const stage = STAGES[c.stage] || 'В обработке';
-  const statusColor = c.stage === 'done' ? '#4ade80' : (c.stage === 'montage' ? '#fb923c' : '#60a5fa');
-  document.getElementById('heroStatus').innerHTML = '<div class="hero-status-dot" style="background:'+statusColor+'"></div><span>'+stage+'</span>';
-  if (c.stage && c.stage !== 'refused') {
-    document.getElementById('orderSection').style.display = 'block';
-    renderOrder(c);
-  }
-  if (c.passport && Object.keys(c.passport).length > 0) {
-    document.getElementById('passportSection').style.display = 'block';
-    renderPassport(c);
-  }
-  const hist = buildHistory(c);
-  if (hist.length) {
-    document.getElementById('historySection').style.display = 'block';
-    renderHistory(hist, c);
-  }
-}
+    try {
+      const {data, error} = await supabaseClient
+        .from('clients2')
+        .select('*')
+        .eq('id', clientId)
+        .maybeSingle();
 
-function renderOrder(c) {
-  const service = c.service_name || c.negotiations || 'Работы на объекте';
-  document.getElementById('orderService').textContent = service;
-  const steps = c.steps || {};
-  const doneCount = STEPS_ORDER.filter(s => steps[s]).length;
-  const activeIdx = STEPS_ORDER.findIndex(s => !steps[s]);
-  const stepsHtml = STEPS_ORDER.map((s,i) => {
-    const cls = steps[s] ? 'done' : (i === activeIdx ? 'active' : 'todo');
-    return '<div class="step '+cls+'" title="'+STEPS_MAP[s]+'"></div>';
-  }).join('');
-  document.getElementById('stepsWrap').innerHTML = stepsHtml;
-  const activeStep = activeIdx >= 0 ? STEPS_MAP[STEPS_ORDER[activeIdx]] : '✅ Все этапы завершены';
-  document.getElementById('stepsLabel').innerHTML = '<span style="font-weight:700;color:#1e293b">'+doneCount+' из '+STEPS_ORDER.length+' этапов</span> &nbsp;·&nbsp; Сейчас: '+activeStep;
-  if (c.sum) {
-    const paid = c.finWorkReal || 0;
-    const total = c.sum;
+      if (error) throw error;
+
+      if (!data) {
+        showLinkScreen();
+        return;
+      }
+
+      showAppScreen();
+      renderApp(data);
+    } catch (err) {
+      console.error(err);
+      showLinkScreen();
+    }
+  }
+
+  function showAppScreen() {
+    loadScreen.style.display = 'none';
+    linkScreen.style.display = 'none';
+    appScreen.style.display = 'block';
+  }
+
+  function showLinkScreen(message) {
+    loadScreen.style.display = 'none';
+    appScreen.style.display = 'none';
+    linkScreen.style.display = 'flex';
+
+    if (message) {
+      const text = linkScreen.querySelector('.link-text');
+      if (text) text.textContent = message;
+    }
+  }
+
+  function renderApp(c) {
+    document.getElementById('heroName').textContent = safeText(c.name, 'Клиент');
+
+    const addrEl = document.getElementById('heroAddr');
+    addrEl.innerHTML = '';
+    const addrIcon = document.createElement('span');
+    addrIcon.textContent = '📍';
+    const addrText = document.createElement('span');
+    addrText.textContent = safeText(c.addr, 'Адрес не указан');
+    addrEl.appendChild(addrIcon);
+    addrEl.appendChild(addrText);
+
+    const stage = STAGES[c.stage] || 'В обработке';
+    const statusColor = c.stage === 'done' ? '#4ade80' : (c.stage === 'montage' ? '#fb923c' : '#60a5fa');
+
+    const heroStatus = document.getElementById('heroStatus');
+    heroStatus.innerHTML = '';
+
+    const dot = document.createElement('div');
+    dot.className = 'hero-status-dot';
+    dot.style.background = statusColor;
+
+    const stageText = document.createElement('span');
+    stageText.textContent = stage;
+
+    heroStatus.appendChild(dot);
+    heroStatus.appendChild(stageText);
+
+    if (c.stage && c.stage !== 'refused') {
+      document.getElementById('orderSection').style.display = 'block';
+      renderOrder(c);
+    }
+
+    const passport = safeObject(c.passport);
+
+    if (Object.keys(passport).length > 0) {
+      document.getElementById('passportSection').style.display = 'block';
+      renderPassport({...c, passport});
+    }
+
+    const hist = buildHistory(c);
+
+    if (hist.length) {
+      document.getElementById('historySection').style.display = 'block';
+      renderHistory(hist, c);
+    }
+  }
+
+  function renderOrder(c) {
+    const service = safeText(c.service_name || c.negotiations, 'Работы на объекте');
+    document.getElementById('orderService').textContent = service;
+
+    const steps = safeObject(c.steps);
+    const doneCount = STEPS_ORDER.filter(s => Boolean(steps[s])).length;
+    const activeIdx = STEPS_ORDER.findIndex(s => !steps[s]);
+
+    const stepsWrap = document.getElementById('stepsWrap');
+    stepsWrap.innerHTML = '';
+
+    STEPS_ORDER.forEach((stepId, index) => {
+      const step = document.createElement('div');
+      step.className = 'step ' + (steps[stepId] ? 'done' : (index === activeIdx ? 'active' : 'todo'));
+      step.title = STEPS_MAP[stepId] || '';
+      stepsWrap.appendChild(step);
+    });
+
+    const activeStep = activeIdx >= 0 ? STEPS_MAP[STEPS_ORDER[activeIdx]] : '✅ Все этапы завершены';
+
+    document.getElementById('stepsLabel').innerHTML =
+      '<span style="font-weight:700;color:#1e293b">' +
+      doneCount + ' из ' + STEPS_ORDER.length + ' этапов</span> &nbsp;·&nbsp; Сейчас: ' +
+      escapeHtml(activeStep);
+
+    renderFinance(c);
+    renderOrderPhotos(c);
+  }
+
+  function renderFinance(c) {
+    const financeBlock = document.getElementById('financeBlock');
+    financeBlock.innerHTML = '';
+
+    const total = Number(c.sum);
+
+    if (!Number.isFinite(total) || total <= 0) {
+      return;
+    }
+
+    const paidRaw = Number(c.finWorkReal);
+    const paid = Number.isFinite(paidRaw) ? paidRaw : 0;
     const rest = Math.max(0, total - paid);
-    document.getElementById('financeBlock').innerHTML = '<div style="border-top:1px solid #f1f5f9;padding-top:10px;margin-top:6px">'
-      +'<div class="finance-row"><span class="finance-label">Стоимость работ</span><span class="finance-val">'+fmt(total)+' ₽</span></div>'
-      +(paid ? '<div class="finance-row"><span class="finance-label">Оплачено</span><span class="finance-val" style="color:#16a34a">'+fmt(paid)+' ₽</span></div>' : '')
-      +(rest && paid ? '<div class="finance-row"><span class="finance-label">Остаток</span><span class="finance-val" style="color:#f97316">'+fmt(rest)+' ₽</span></div>' : '')
-      +(c.planned_date && c.stage==='planned' ? '<div class="finance-row"><span class="finance-label">📅 Дата монтажа</span><span class="finance-val" style="color:#0891b2">'+c.planned_date+(c.planned_time ? ' '+c.planned_time : '')+'</span></div>' : '')
-      +'</div>';
-  }
-  const photos = c.photos || [];
-  if (photos.length) {
-    document.getElementById('photosCard').style.display = 'block';
-    document.getElementById('photoGrid').innerHTML = photos.slice(0,6).map(p => '<div class="photo-wrap photo"><img src="'+p.url+'" alt="'+(p.caption||'Фото')+'"></div>').join('');
-  }
-}
 
-function renderPassport(c) {
-  const sys = c.passport || {};
-  const scoreMap = {new:100, ok:80, check:50, bad:20, none:0};
-  const items = PASSPORT_SYSTEMS.filter(s => sys[s.id] && sys[s.id].status);
-  const avg = items.length ? Math.round(items.reduce((a,s) => a + (scoreMap[sys[s.id].status]||0), 0) / items.length) : 0;
-  const scoreClr = avg>=70 ? '#16a34a' : avg>=40 ? '#d97706' : '#dc2626';
-  document.getElementById('scoreBlock').innerHTML = '<div style="display:flex;align-items:center;gap:8px">'
-    +'<div style="flex:1;width:80px;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden">'
-    +'<div style="width:'+avg+'%;height:6px;background:'+scoreClr+';border-radius:3px"></div></div>'
-    +'<span style="font-size:13px;font-weight:800;color:'+scoreClr+'">'+avg+'%</span></div>';
-  const filled = PASSPORT_SYSTEMS.filter(s => sys[s.id] && sys[s.id].status && sys[s.id].status !== 'none');
-  if (!filled.length) {
-    document.getElementById('systemsList').innerHTML = '<div class="empty">Данные об объекте пока заполняются</div>';
-    return;
+    let html = '<div style="border-top:1px solid #f1f5f9;padding-top:10px;margin-top:6px">';
+    html += '<div class="finance-row"><span class="finance-label">Стоимость работ</span><span class="finance-val">' + fmt(total) + ' ₽</span></div>';
+
+    if (paid > 0) {
+      html += '<div class="finance-row"><span class="finance-label">Оплачено</span><span class="finance-val" style="color:#16a34a">' + fmt(paid) + ' ₽</span></div>';
+    }
+
+    if (rest > 0 && paid > 0) {
+      html += '<div class="finance-row"><span class="finance-label">Остаток</span><span class="finance-val" style="color:#f97316">' + fmt(rest) + ' ₽</span></div>';
+    }
+
+    if (c.planned_date && c.stage === 'planned') {
+      html += '<div class="finance-row"><span class="finance-label">📅 Дата монтажа</span><span class="finance-val" style="color:#0891b2">' +
+        escapeHtml(c.planned_date) +
+        (c.planned_time ? ' ' + escapeHtml(c.planned_time) : '') +
+        '</span></div>';
+    }
+
+    html += '</div>';
+    financeBlock.innerHTML = html;
   }
-  document.getElementById('systemsList').innerHTML = filled.map(s => {
-    const d = sys[s.id];
-    const st = STATUS_BADGE[d.status] || STATUS_BADGE.none;
-    const age = d.year ? new Date().getFullYear() - d.year : null;
-    return '<div class="sys-item">'
-      +'<div class="sys-icon" style="background:#f8fafc;font-size:18px">'+s.icon+'</div>'
-      +'<div style="flex:1;min-width:0">'
-      +'<div class="sys-name">'+s.name+'</div>'
-      +(age !== null ? '<div class="sys-sub">'+d.year+' г. · '+age+' лет'+(d.comment ? ' · '+d.comment : '')+'</div>' : '')
-      +(d.comment && age === null ? '<div class="sys-sub">'+d.comment+'</div>' : '')
-      +'</div>'
-      +'<span class="badge '+st.cls+'">'+st.label+'</span>'
-      +'</div>';
-  }).join('');
-  const urgent = filled.filter(s => sys[s.id].status === 'bad' || sys[s.id].status === 'check');
-  if (urgent.length) {
-    const recsHtml = urgent.map(s => {
-      const d = sys[s.id];
-      const isUrgent = d.status === 'bad';
-      return '<div class="rec-item'+(isUrgent ? ' urgent' : '')+'">'
-        +'<div class="rec-icon">'+s.icon+'</div>'
-        +'<div><div class="rec-text">'+(d.rec || (isUrgent ? 'Требует замены: '+s.name : 'Рекомендуем проверить: '+s.name))+'</div>'
-        +(d.cost ? '<div class="rec-sub">Примерная стоимость: ~'+fmt(d.cost)+' ₽</div>' : '')
-        +'</div></div>';
+
+  function renderOrderPhotos(c) {
+    const photos = safeArray(c.photos);
+    const photosCard = document.getElementById('photosCard');
+    const photoGrid = document.getElementById('photoGrid');
+
+    photosCard.style.display = 'none';
+    photoGrid.innerHTML = '';
+
+    if (!photos.length) {
+      return;
+    }
+
+    const validPhotos = photos
+      .map(photo => ({
+        url: safeUrl(photo && photo.url),
+        caption: safeText(photo && photo.caption, 'Фото')
+      }))
+      .filter(photo => photo.url)
+      .slice(0, 6);
+
+    if (!validPhotos.length) {
+      return;
+    }
+
+    photosCard.style.display = 'block';
+    renderPhotoGrid(photoGrid, validPhotos, 'Фото');
+  }
+
+  function renderPassport(c) {
+    const sys = safeObject(c.passport);
+    const scoreMap = {new: 100, ok: 80, check: 50, bad: 20, none: 0};
+
+    const items = PASSPORT_SYSTEMS.filter(s => {
+      const item = safeObject(sys[s.id]);
+      return item.status;
+    });
+
+    const avg = items.length
+      ? Math.round(items.reduce((sum, s) => {
+          const item = safeObject(sys[s.id]);
+          return sum + (scoreMap[item.status] || 0);
+        }, 0) / items.length)
+      : 0;
+
+    const scoreClr = avg >= 70 ? '#16a34a' : (avg >= 40 ? '#d97706' : '#dc2626');
+
+    document.getElementById('scoreBlock').innerHTML =
+      '<div style="display:flex;align-items:center;gap:8px">' +
+      '<div style="flex:1;width:80px;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden">' +
+      '<div style="width:' + avg + '%;height:6px;background:' + scoreClr + ';border-radius:3px"></div>' +
+      '</div>' +
+      '<span style="font-size:13px;font-weight:800;color:' + scoreClr + '">' + avg + '%</span>' +
+      '</div>';
+
+    const filled = PASSPORT_SYSTEMS.filter(s => {
+      const item = safeObject(sys[s.id]);
+      return item.status && item.status !== 'none';
+    });
+
+    const systemsList = document.getElementById('systemsList');
+
+    if (!filled.length) {
+      systemsList.innerHTML = '<div class="empty">Данные об объекте пока заполняются</div>';
+      return;
+    }
+
+    systemsList.innerHTML = filled.map(s => {
+      const d = safeObject(sys[s.id]);
+      const st = STATUS_BADGE[d.status] || STATUS_BADGE.none;
+      const year = Number(d.year);
+      const age = Number.isFinite(year) ? new Date().getFullYear() - year : null;
+      const comment = safeText(d.comment);
+
+      let sub = '';
+
+      if (age !== null) {
+        sub = escapeHtml(year + ' г. · ' + age + ' лет' + (comment ? ' · ' + comment : ''));
+      } else if (comment) {
+        sub = escapeHtml(comment);
+      }
+
+      return '<div class="sys-item">' +
+        '<div class="sys-icon" style="background:#f8fafc;font-size:18px">' + escapeHtml(s.icon) + '</div>' +
+        '<div style="flex:1;min-width:0">' +
+        '<div class="sys-name">' + escapeHtml(s.name) + '</div>' +
+        (sub ? '<div class="sys-sub">' + sub + '</div>' : '') +
+        '</div>' +
+        '<span class="badge ' + escapeHtml(st.cls) + '">' + escapeHtml(st.label) + '</span>' +
+        '</div>';
     }).join('');
-    document.getElementById('recsBlock').innerHTML = '<div style="margin-bottom:6px;font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px">⚠️ Рекомендации</div>'
-      + recsHtml
-      + '<a href="tel:+79200100321" style="text-decoration:none"><button class="btn-order">📋 Обсудить с менеджером</button></a>';
+
+    renderRecommendations(filled, sys);
   }
-}
 
-function buildHistory(c) {
-  const hist = [];
-  (c.history || []).forEach(h => {
-    if (h.text && (h.text.includes('→') || h.text.includes('Закрыт') || h.text.includes('добавлен') || h.text.includes('Паспорт') || h.text.includes('Уведомление'))) {
-      if (h.text.includes('Паспорт') || h.text.includes('Уведомление') || h.text.includes('Задание бригаде')) return;
-      hist.push({text: h.text, time: h.time, color: h.color || '#94a3b8'});
-    }
-  });
-  return hist.slice(0,8);
-}
+  function renderRecommendations(filled, sys) {
+    const urgent = filled.filter(s => {
+      const item = safeObject(sys[s.id]);
+      return item.status === 'bad' || item.status === 'check';
+    });
 
-function renderHistory(hist, c) {
-  const photos = c.photos || [];
-  const photosBefore = photos.filter(p => p.caption && p.caption.toLowerCase().includes('до'));
-  const photosAfter = photos.filter(p => p.caption && p.caption.toLowerCase().includes('после'));
-  let html = '';
-  if (photosBefore.length || photosAfter.length) {
-    html += '<div style="margin-bottom:12px">';
-    if (photosBefore.length) {
-      html += '<div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">До работ</div>';
-      html += '<div class="photos">'+photosBefore.slice(0,3).map(p => '<div class="photo-wrap photo"><img src="'+p.url+'" alt="До"></div>').join('')+'</div>';
+    const recsBlock = document.getElementById('recsBlock');
+    recsBlock.innerHTML = '';
+
+    if (!urgent.length) {
+      return;
     }
-    if (photosAfter.length) {
-      html += '<div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">После работ</div>';
-      html += '<div class="photos">'+photosAfter.slice(0,3).map(p => '<div class="photo-wrap photo"><img src="'+p.url+'" alt="После"></div>').join('')+'</div>';
-    }
-    html += '</div><div style="border-top:1px solid #f1f5f9;margin-bottom:10px"></div>';
+
+    const recsHtml = urgent.map(s => {
+      const d = safeObject(sys[s.id]);
+      const isUrgent = d.status === 'bad';
+
+      const defaultText = isUrgent
+        ? 'Требует замены: ' + s.name
+        : 'Рекомендуем проверить: ' + s.name;
+
+      const recText = safeText(d.rec, defaultText);
+
+      return '<div class="rec-item' + (isUrgent ? ' urgent' : '') + '">' +
+        '<div class="rec-icon">' + escapeHtml(s.icon) + '</div>' +
+        '<div>' +
+        '<div class="rec-text">' + escapeHtml(recText) + '</div>' +
+        (d.cost ? '<div class="rec-sub">Примерная стоимость: ~' + fmt(d.cost) + ' ₽</div>' : '') +
+        '</div>' +
+        '</div>';
+    }).join('');
+
+    recsBlock.innerHTML =
+      '<div style="margin-bottom:6px;font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px">⚠️ Рекомендации</div>' +
+      recsHtml +
+      '<a href="tel:+79200100321" style="text-decoration:none"><button class="btn-order" type="button">📋 Обсудить с менеджером</button></a>';
   }
-  html += hist.map(h => '<div class="hist-item">'
-    +'<div class="hist-dot" style="background:'+h.color+'"></div>'
-    +'<div style="flex:1"><div class="hist-name">'+h.text+'</div>'
-    +'<div class="hist-meta">'+h.time+'</div></div>'
-    +'</div>').join('');
-  if (!html) html = '<div class="empty">История работ появится здесь</div>';
-  document.getElementById('historyList').innerHTML = html;
-}
 
-loadClient();
+  function buildHistory(c) {
+    const hist = [];
+
+    safeArray(c.history).forEach(h => {
+      const item = safeObject(h);
+      const text = safeText(item.text);
+
+      if (!text) return;
+
+      const isUseful =
+        text.includes('→') ||
+        text.includes('Закрыт') ||
+        text.includes('добавлен') ||
+        text.includes('Паспорт') ||
+        text.includes('Уведомление');
+
+      if (!isUseful) return;
+
+      const isHidden =
+        text.includes('Паспорт') ||
+        text.includes('Уведомление') ||
+        text.includes('Задание бригаде');
+
+      if (isHidden) return;
+
+      hist.push({
+        text: text,
+        time: safeText(item.time),
+        color: safeColor(item.color, '#94a3b8')
+      });
+    });
+
+    return hist.slice(0, 8);
+  }
+
+  function renderHistory(hist, c) {
+    const historyList = document.getElementById('historyList');
+    const photos = safeArray(c.photos);
+
+    const photosBefore = photos.filter(p => safeText(p && p.caption).toLowerCase().includes('до'));
+    const photosAfter = photos.filter(p => safeText(p && p.caption).toLowerCase().includes('после'));
+
+    let html = '';
+
+    if (photosBefore.length || photosAfter.length) {
+      html += '<div style="margin-bottom:12px">';
+
+      if (photosBefore.length) {
+        html += '<div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">До работ</div>';
+        html += '<div class="photos">' + photosBefore.slice(0, 3).map(p => renderPhotoHtml(p, 'До')).join('') + '</div>';
+      }
+
+      if (photosAfter.length) {
+        html += '<div style="font-size:10px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">После работ</div>';
+        html += '<div class="photos">' + photosAfter.slice(0, 3).map(p => renderPhotoHtml(p, 'После')).join('') + '</div>';
+      }
+
+      html += '</div><div style="border-top:1px solid #f1f5f9;margin-bottom:10px"></div>';
+    }
+
+    html += hist.map(h => {
+      return '<div class="hist-item">' +
+        '<div class="hist-dot" style="background:' + safeColor(h.color, '#94a3b8') + '"></div>' +
+        '<div style="flex:1">' +
+        '<div class="hist-name">' + escapeHtml(h.text) + '</div>' +
+        '<div class="hist-meta">' + escapeHtml(h.time) + '</div>' +
+        '</div>' +
+        '</div>';
+    }).join('');
+
+    if (!html) {
+      html = '<div class="empty">История работ появится здесь</div>';
+    }
+
+    historyList.innerHTML = html;
+  }
+
+  function renderPhotoGrid(container, photos, altFallback) {
+    container.innerHTML = '';
+
+    photos.forEach(photo => {
+      const wrap = document.createElement('div');
+      wrap.className = 'photo-wrap photo';
+
+      const img = document.createElement('img');
+      img.src = photo.url;
+      img.alt = safeText(photo.caption, altFallback);
+
+      wrap.appendChild(img);
+      container.appendChild(wrap);
+    });
+  }
+
+  function renderPhotoHtml(photo, altFallback) {
+    const url = safeUrl(photo && photo.url);
+
+    if (!url) return '';
+
+    return '<div class="photo-wrap photo"><img src="' + escapeHtml(url) + '" alt="' + escapeHtml(altFallback) + '"></div>';
+  }
+
+  function safeText(value, fallback = '') {
+    if (value === null || value === undefined || value === '') {
+      return fallback;
+    }
+    return String(value);
+  }
+
+  function escapeHtml(value, fallback = '') {
+    return safeText(value, fallback)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function safeArray(value) {
+    return Array.isArray(value) ? value : [];
+  }
+
+  function safeObject(value) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      return value;
+    }
+    return {};
+  }
+
+  function safeUrl(value) {
+    const url = safeText(value).trim();
+    if (!url) return '';
+
+    if (url.startsWith('https://') || url.startsWith('http://') || url.startsWith('data:image/')) {
+      return url;
+    }
+
+    return '';
+  }
+
+  function safeColor(value, fallback = '#94a3b8') {
+    const color = safeText(value).trim();
+
+    if (/^#[0-9a-fA-F]{3,8}$/.test(color)) return color;
+    if (/^rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)$/.test(color)) return color;
+    if (/^rgba\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*(0|1|0?\.\d+)\s*\)$/.test(color)) return color;
+
+    return fallback;
+  }
+
+  function fmt(value) {
+    const num = Number(value);
+    if (!Number.isFinite(num)) return '0';
+    return num.toLocaleString('ru-RU');
+  }
+})();
 </script>
+
 </body>
 </html>
