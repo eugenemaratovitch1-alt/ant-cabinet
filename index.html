@@ -106,8 +106,24 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
 /* Общее состояние */
 .score-wrap{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .score-val{font-size:28px;font-weight:900}
-.score-bar-wrap{flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden}
-.score-bar{height:8px;border-radius:4px;transition:width .5s}
+.score-bar-wrap{flex:1;height:8px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.score-bar{height:8px;border-radius:3px;transition:width .5s}
+
+/* Рекомендации от менеджера */
+.rec-card {
+  background: #eef2ff;
+  border-left: 4px solid #2563eb;
+}
+.rec-card .card-title {
+  color: #2563eb;
+}
+.rec-text-block {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
 
 /* Скрытые секции */
 #appScreen{display:none}
@@ -167,6 +183,14 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
     <div class="card" id="photosCard" style="display:none;margin-top:8px">
       <div class="card-title">Фото с объекта</div>
       <div class="photos" id="photoGrid"></div>
+    </div>
+  </div>
+
+  <!-- БЛОК РЕКОМЕНДАЦИЙ ОТ МЕНЕДЖЕРА (добавлен) -->
+  <div class="section" id="recommendationsSection" style="display:none">
+    <div class="card rec-card">
+      <div class="card-title">💡 Рекомендации специалиста</div>
+      <div id="recommendationsText" class="rec-text-block"></div>
     </div>
   </div>
 
@@ -343,6 +367,17 @@ body{font-family:'Nunito',sans-serif;background:#f1f5f9;min-height:100vh;max-wid
 
     heroStatus.appendChild(dot);
     heroStatus.appendChild(stageText);
+
+    // Отображаем рекомендации, если они есть
+    const recommendations = safeText(c.recommendations);
+    const recSection = document.getElementById('recommendationsSection');
+    if (recommendations) {
+      const recTextDiv = document.getElementById('recommendationsText');
+      recTextDiv.innerHTML = escapeHtml(recommendations).replace(/\n/g, '<br>');
+      recSection.style.display = 'block';
+    } else {
+      recSection.style.display = 'none';
+    }
 
     if (c.stage && c.stage !== 'refused') {
       document.getElementById('orderSection').style.display = 'block';
